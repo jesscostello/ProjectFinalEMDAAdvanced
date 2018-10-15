@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjectFinalEMDAAdvanced.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProjectFinalEMDAAdvanced.Business;
 
 namespace ProjectFinalEMDAAdvanced
 {
@@ -39,6 +40,10 @@ namespace ProjectFinalEMDAAdvanced
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IDbCalls, DbCalls>();
+
+            services.AddDbContext<StaffDbContext>(options => options.UseSqlite("Data Source = Staff.db"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
