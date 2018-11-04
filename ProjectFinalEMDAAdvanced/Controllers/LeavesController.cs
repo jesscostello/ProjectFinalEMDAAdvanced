@@ -22,7 +22,14 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // GET: Leaves
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Leave.ToListAsync());
+            List<Leave> StaffNames = new List<Leave>();
+            StaffNames.AddRange(_context.Leave
+                .Include(s => s.Staff)
+                .ToList());
+
+            ViewData["StaffNames"] = StaffNames;
+
+            return View();
         }
 
         // GET: Leaves/Details/5
@@ -46,6 +53,14 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // GET: Leaves/Create
         public IActionResult Create()
         {
+            ViewData["Staff"] = _context.Staff.Distinct()
+                .OrderBy(n => n.FirstName)
+                .Select(n => new SelectListItem
+                {
+                    Value = n.Id.ToString(),
+                    Text = n.FirstName + " " + n.LastName
+                }).ToList();
+
             return View();
         }
 
@@ -54,8 +69,15 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StartDate,EndDate,TotalDays,Accepted")] Leave leave)
+        public async Task<IActionResult> Create([Bind("Id,Staff,StartDate,EndDate,TotalDays,Accepted")] Leave leave)
         {
+            int staffid = leave.Staff.Id;
+            Staff staff = _context.Staff.Where(s => s.Id == staffid).SingleOrDefault();
+
+            leave.Staff = staff;
+            // set leave accepted to false
+            leave.Accepted = false;
+            
             if (ModelState.IsValid)
             {
                 _context.Add(leave);
