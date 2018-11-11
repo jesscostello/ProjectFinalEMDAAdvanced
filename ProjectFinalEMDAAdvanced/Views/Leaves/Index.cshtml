@@ -15,6 +15,7 @@
             </div>
         </div>
     </div>
+    <div id="script-warning"></div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2" id="calendar"></div>
     </div>
@@ -79,7 +80,13 @@
         $('#calendar').fullCalendar({
             themeSystem: 'bootstrap4',
             defaultView: 'month',
-            fixedWeekCount: false
+            fixedWeekCount: false,
+            events: {
+                url: '/api/EventsAPI',
+                error: function () {
+                    $('#script-warning').show();
+                }
+            }
         });
     });
 </script>

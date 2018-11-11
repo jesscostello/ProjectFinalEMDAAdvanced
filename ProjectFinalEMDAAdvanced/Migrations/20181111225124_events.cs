@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectFinalEMDAAdvanced.Migrations
 {
-    public partial class leaveandevent : Migration
+    public partial class events : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,6 @@ namespace ProjectFinalEMDAAdvanced.Migrations
                     IsFullDay = table.Column<bool>(nullable: false),
                     Days = table.Column<int>(nullable: false),
                     Weeks = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
                     StaffId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

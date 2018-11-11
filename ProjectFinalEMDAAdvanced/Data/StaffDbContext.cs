@@ -13,6 +13,8 @@ namespace ProjectFinalEMDAAdvanced.Data
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Reasons> Reasons { get; set; }
         public DbSet<SignOuts> SignOuts { get; set; }
+        public DbSet<ProjectFinalEMDAAdvanced.Models.Leave> Leave { get; set; }
+        public DbSet<ProjectFinalEMDAAdvanced.Models.Events> Events { get; set; }
 
         // We need 2 constructors, one is empty, and the other injects in DbContextOptions
         public StaffDbContext(DbContextOptions<StaffDbContext> options)
@@ -26,7 +28,5 @@ namespace ProjectFinalEMDAAdvanced.Data
         {
             base.OnModelCreating(builder);
         }
-        public DbSet<ProjectFinalEMDAAdvanced.Models.Leave> Leave { get; set; }
-        public DbSet<ProjectFinalEMDAAdvanced.Models.Events> Events { get; set; }
     }
 }

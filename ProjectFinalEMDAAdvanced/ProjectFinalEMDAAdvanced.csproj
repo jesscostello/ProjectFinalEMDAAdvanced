@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181111221321_eventsfix.cs" />
+    <Compile Remove="Migrations\20181111221321_eventsfix.Designer.cs" />
+    <Compile Remove="Migrations\20181111223607_eventsfix.cs" />
+    <Compile Remove="Migrations\20181111223607_eventsfix.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="EMDAStaff.db" />
   </ItemGroup>
 

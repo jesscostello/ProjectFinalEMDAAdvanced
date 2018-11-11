@@ -9,8 +9,8 @@ using ProjectFinalEMDAAdvanced.Data;
 namespace ProjectFinalEMDAAdvanced.Migrations
 {
     [DbContext(typeof(StaffDbContext))]
-    [Migration("20181111210121_leaveandevent")]
-    partial class leaveandevent
+    [Migration("20181111221321_eventsfix")]
+    partial class eventsfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,6 @@ namespace ProjectFinalEMDAAdvanced.Migrations
                     b.Property<string>("EventColor");
 
                     b.Property<bool>("IsFullDay");
-
-                    b.Property<string>("Name");
 
                     b.Property<int?>("StaffId");
 

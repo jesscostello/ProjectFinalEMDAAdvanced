@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectFinalEMDAAdvanced.Data;
 
 namespace ProjectFinalEMDAAdvanced.Migrations
 {
     [DbContext(typeof(StaffDbContext))]
-    partial class StaffDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181111223607_eventsfix")]
+    partial class eventsfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

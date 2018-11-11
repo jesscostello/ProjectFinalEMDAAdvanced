@@ -28,13 +28,13 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
             var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (events == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EventColor,Start,End,Title,IsFullDay,Days,Weeks,Name")] Events events)
+        public async Task<IActionResult> Create([Bind("Id,EventColor,Start,End,Title,IsFullDay,Days,Weeks,Staff")] Events events)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,34 @@ namespace ProjectFinalEMDAAdvanced.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            //if (ModelState.IsValid)
+            //{
+            //    //check if there is a fullday or repeating weeks or days
+            //    if (events.IsFullDay || events.Days > 0 || events.Weeks > 0)
+            //    {
+            //        foreach (var booking in DayWeeksAllDayMods.EventCalc(events))
+            //        {
+            //            _context.Add(booking);
+            //        }
+            //    }
+            //    //pass through the event and look for clashes where its the same room after today
+            //    DayWeeksAllDayMods.DoTheDatesOverlap(_context.Events.Where(e => e.ResourceId == events.ResourceId && e.End > DateTime.Now).ToList(), events);
+
+            //    //We have a clash
+            //    if (DayWeeksAllDayMods.WeHaveAClash == true)
+            //    {
+            //        return RedirectToAction("Clash");
+            //    }
+            //    else
+            //    {//we dont have a clash
+            //        _context.Add(events);
+            //        await _context.SaveChangesAsync();
+            //        return View();
+            //    }
+            //}
+
+
             return View(events);
         }
 
@@ -86,14 +114,15 @@ namespace ProjectFinalEMDAAdvanced.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EventColor,Start,End,Title,IsFullDay,Days,Weeks,Name")] Events events)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EventColor,Start,End,Title,IsFullDay,Days,Weeks,Staff")] Events events)
         {
             if (id != events.Id)
             {
-                return NotFound();
+                //return NotFound();
+                events.Id = id;
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && events.End > events.Start)
             {
                 try
                 {
@@ -113,7 +142,8 @@ namespace ProjectFinalEMDAAdvanced.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(events);
+            //return View(events);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Events/Delete/5
@@ -125,7 +155,7 @@ namespace ProjectFinalEMDAAdvanced.Controllers
             }
 
             var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (events == null)
             {
                 return NotFound();

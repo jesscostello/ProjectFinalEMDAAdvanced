@@ -25,7 +25,6 @@ namespace ProjectFinalEMDAAdvanced.Models
         public bool IsFullDay { get; set; }
         public int Days { get; set; }
         public int Weeks { get; set; }
-        public string Name { get; set; }
         public Staff Staff { get; set; }
     }
 }
