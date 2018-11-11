@@ -27,5 +27,6 @@ namespace ProjectFinalEMDAAdvanced.Data
             base.OnModelCreating(builder);
         }
         public DbSet<ProjectFinalEMDAAdvanced.Models.Leave> Leave { get; set; }
+        public DbSet<ProjectFinalEMDAAdvanced.Models.Events> Events { get; set; }
     }
 }
