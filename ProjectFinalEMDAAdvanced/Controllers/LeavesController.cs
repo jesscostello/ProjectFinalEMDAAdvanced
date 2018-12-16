@@ -119,6 +119,17 @@ namespace ProjectFinalEMDAAdvanced.Controllers
             {
                 try
                 {
+                    if (leave.Accepted == true)
+                    {
+                        int staffid = leave.Staff.Id;
+                        Staff staff = (Staff)_context.Staff.Where(s => s.Id == staffid).SingleOrDefault();
+
+                        Events events = new Events();
+                        events.Staff = staff;
+                        events.Title = staff.FirstName + " " + staff.LastName + " Annual Leave";
+
+                        _context.Update(staff);
+                    }
                     _context.Update(leave);
                     await _context.SaveChangesAsync();
                 }
