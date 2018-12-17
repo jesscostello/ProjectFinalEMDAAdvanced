@@ -128,7 +128,7 @@ namespace ProjectFinalEMDAAdvanced.Controllers
                         events.Staff = staff;
                         events.Title = staff.FirstName + " " + staff.LastName + " Annual Leave";
 
-                        _context.Update(staff);
+                        _context.Add(events);
                     }
                     _context.Update(leave);
                     await _context.SaveChangesAsync();
