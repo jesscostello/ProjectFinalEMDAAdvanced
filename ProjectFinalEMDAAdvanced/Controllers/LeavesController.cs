@@ -100,7 +100,16 @@ namespace ProjectFinalEMDAAdvanced.Controllers
             {
                 return NotFound();
             }
-            return View(leave);
+
+            int staffid = _context.Leave
+                .Include(s => s.Staff)
+                .Where(l => l.Id == id)
+                .Select(s => s.Staff.Id)
+                .SingleOrDefault();
+
+            ViewData["StaffId"] = staffid;
+
+           return View(leave);
         }
 
         // POST: Leaves/Edit/5
@@ -121,10 +130,19 @@ namespace ProjectFinalEMDAAdvanced.Controllers
                 {
                     if (leave.Accepted == true)
                     {
-                        int staffid = leave.Staff.Id;
+                        int staffid = _context.Leave
+                            .Include(s => s.Staff)
+                            .Where(l => l.Id == id)
+                            .Select(s => s.Staff.Id)
+                            .SingleOrDefault();
+
                         Staff staff = (Staff)_context.Staff.Where(s => s.Id == staffid).SingleOrDefault();
 
                         Events events = new Events();
+                        events.IsFullDay = true;
+                        events.Start = leave.StartDate;
+                        events.End = leave.EndDate;
+                        events.Days = leave.TotalDays;
                         events.Staff = staff;
                         events.Title = staff.FirstName + " " + staff.LastName + " Annual Leave";
 
